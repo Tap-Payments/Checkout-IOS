@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Checkout-IOS'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'From the shelf checkout processing library provided by Tap Payments'
   s.homepage         = 'https://github.com/Tap-Payments/Checkout-IOS'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
