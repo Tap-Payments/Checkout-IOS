@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Checkout-IOS'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'From the shelf checkout processing library provided by Tap Payments'
   s.homepage         = 'https://github.com/Tap-Payments/Checkout-IOS'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'Checkout-iOS_Checkout-iOS' => ['Sources/Checkout-IOS/Resources/**/*.{xcassets,json,xib,pdf,png,gif,storyboard,xcdatamodeld,lproj}']
   }  
+  s.preserve_paths = 'Sources/Checkout-IOS/Resources/**/*'
   s.dependency'SwiftEntryKit'
   s.dependency'SwiftyRSA'
   s.dependency'SnapKit'
