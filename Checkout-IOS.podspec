@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'Checkout-iOS_Checkout-iOS' => ['Sources/Checkout-IOS/Resources/**/*.{xcassets,json,xib,pdf,png,gif,storyboard,xcdatamodeld,lproj}']
   }  
+  s.preserve_paths = 'Sources/Checkout-IOS/Resources/**/*'
   s.dependency'SwiftEntryKit'
   s.dependency'SwiftyRSA'
   s.dependency'SnapKit'
