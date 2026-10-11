@@ -233,6 +233,10 @@ extension ViewController: CheckoutSDKDelegate {
         addCallbackMessage("onSuccess: \(data)")
     }
     
+    func onChargeCreated(data: String) {
+        addCallbackMessage("onChargeCreated: \(data)")
+    }
+    
     func onError(data: String) {
         addCallbackMessage("onError: \(data)")
     }

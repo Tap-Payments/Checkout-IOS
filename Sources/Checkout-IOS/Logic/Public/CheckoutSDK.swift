@@ -40,6 +40,10 @@ extension CheckoutSDK: CheckoutSDKResults {
     func onError(data: String) {
         delegate?.onError(data: data)
     }
+    
+    func onChargeCreated(data: String) {
+        delegate?.onChargeCreated(data: data)
+    }
 }
 
 
@@ -49,4 +53,5 @@ public protocol CheckoutSDKDelegate: AnyObject {
     func onReady()
     func onSuccess(data: String)
     func onError(data: String)
+    func onChargeCreated(data: String)
 }

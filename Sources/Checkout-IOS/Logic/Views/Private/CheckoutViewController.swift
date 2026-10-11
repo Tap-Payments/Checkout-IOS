@@ -156,6 +156,8 @@ extension CheckoutViewController: WKNavigationDelegate {
         case _ where url.absoluteString.contains("onScannerClick"):
             handleScanCard()
             break
+        case _ where url.absoluteString.contains("onChargeCreated"):
+            handleOnChargeCreated(data: tap_extractDataFromUrl(url.absoluteURL))
         default:
             break
         }
@@ -180,6 +182,10 @@ extension CheckoutViewController {
             guard let self = self else { return }
             self.results.onClose()
         }
+    }
+    
+    func handleOnChargeCreated(data: String) {
+        self.results.onChargeCreated(data: data)
     }
     
     func handleSuccess(data: String) {
