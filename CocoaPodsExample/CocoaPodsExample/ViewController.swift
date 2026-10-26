@@ -36,8 +36,8 @@ class ViewController: UIViewController {
         let textView = UITextView()
         textView.isEditable = false
         textView.font = UIFont.systemFont(ofSize: 14)
-        textView.textColor = .darkGray
-        textView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        textView.textColor = .label
+        textView.backgroundColor = .secondarySystemBackground
         textView.layer.cornerRadius = 8
         textView.text = "Callbacks will appear here..."
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Tap Checkout"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(openSettings))
 
         view.addSubview(checkoutButton)
