@@ -30,12 +30,8 @@ extension CheckoutViewController {
     
     func applicationStaticDetails() -> [String: String] {
         let bundleID = TapApplicationPlistInfo.shared.bundleIdentifier ?? ""
-        let sdkPlistInfo = TapBundlePlistInfo(bundle: Bundle(for: CheckoutViewController.self))
-        
-        guard let requirerVersion = sdkPlistInfo.shortVersionString, !requirerVersion.isEmpty else {
-            fatalError("Seems like SDK is not integrated well.")
-        }
-        
+        let requirerVersion = CheckoutSDKVersion.current
+
         let networkInfo = CTTelephonyNetworkInfo()
         let providers = networkInfo.serviceSubscriberCellularProviders
         

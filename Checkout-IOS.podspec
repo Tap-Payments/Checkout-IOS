@@ -1,6 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Checkout-IOS'
-  s.version          = '1.0.4'
+  # Read from the SDK source so the podspec and the version the SDK reports never drift.
+  s.version          = File.read(File.join(__dir__, 'Sources/Checkout-IOS/Logic/Private/utils/CheckoutSDKVersion.swift'))[/current = "([^"]+)"/, 1]
   s.summary          = 'From the shelf checkout processing library provided by Tap Payments'
   s.homepage         = 'https://github.com/Tap-Payments/Checkout-IOS'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
