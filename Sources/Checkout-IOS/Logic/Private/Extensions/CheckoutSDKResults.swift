@@ -11,5 +11,6 @@ internal protocol CheckoutSDKResults: AnyObject {
     func onSuccess(data: String)
     func onError(data: String)
     func onClose()
+    func onChargeCreated(data: String)
 }
     
