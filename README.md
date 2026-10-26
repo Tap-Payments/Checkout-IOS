@@ -16,7 +16,6 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 - [Charge vs Authorize](#charge-vs-authorize)
 - [Sandbox vs production](#sandbox-vs-production)
 - [Example apps](#example-apps)
-- [Tests](#tests)
 - [Troubleshooting](#troubleshooting)
 
 ## Requirements
@@ -360,24 +359,6 @@ Before running, open `Keys.swift` and replace the placeholder `YOUR_TAP_PUBLIC_K
 | Card number | Expiry | CVV |
 |---|---|---|
 | 4508 7500 1574 1019 | 01/39 | 100 |
-
-## Tests
-
-**Unit tests** ([`SPMExampleTests`](SPMExample/SPMExampleTests)) check, on a simulator and without the network, that the example app builds the configuration with the defaults and rules documented above:
-
-```bash
-xcodebuild test -project SPMExample/SPMExample.xcodeproj -scheme SPMExample \
-  -destination 'platform=iOS Simulator,name=iPhone 17' -only-testing:SPMExampleTests
-```
-
-**UI tests** ([`ReadmeConfigurationTests`](SPMExample/SPMExampleUITests/ReadmeConfigurationTests.swift)) start the checkout against the Tap sandbox, once per configuration value in this README, and check what the sheet shows or what the created charge contains. Each test prints a `RESULT |` line and attaches a screenshot. Pass a sandbox key; it is never committed:
-
-```bash
-TEST_RUNNER_TAP_PUBLIC_KEY=pk_test_... xcodebuild test -project SPMExample/SPMExample.xcodeproj -scheme SPMExample \
-  -destination 'platform=iOS Simulator,name=iPhone 17' -only-testing:SPMExampleUITests
-```
-
-Without the key the UI tests are skipped.
 
 ## Troubleshooting
 
