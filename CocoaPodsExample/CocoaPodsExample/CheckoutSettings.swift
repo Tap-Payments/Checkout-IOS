@@ -163,7 +163,7 @@ struct CheckoutSettings: Codable {
             "gateway": gateway,
             "customer": customer,
             "transaction": ["mode": mode, mode: transaction],
-            "amount": totalAmount,
+            "amount": Self.jsonNumber(totalAmount),
             "order": order,
             "cardOptions": [
                 "showBrands": showBrands,
@@ -218,10 +218,10 @@ struct CheckoutSettings: Codable {
         var order: [String: Any] = [
             "id": orderId,
             "currency": selectedCurrency,
-            "amount": totalAmount,
+            "amount": Self.jsonNumber(totalAmount),
             "items": items.map { item -> [String: Any] in
                 [
-                    "amount": item.amount,
+                    "amount": Self.jsonNumber(item.amount),
                     "currency": selectedCurrency,
                     "name": item.name,
                     "quantity": item.quantity,
@@ -230,7 +230,7 @@ struct CheckoutSettings: Codable {
             },
         ]
         if discountValue > 0 {
-            order["discount"] = ["type": discountType, "value": discountValue]
+            order["discount"] = ["type": discountType, "value": Self.jsonNumber(discountValue)]
         }
         return order
     }
@@ -268,6 +268,12 @@ struct CheckoutSettings: Codable {
             transaction["airline"] = ["reference": ["booking": bookingReference]]
         }
         return transaction
+    }
+
+    /// `JSONSerialization` writes a `Double` such as 0.1 as 0.10000000000000001. Rounding to 3 decimals
+    /// (the most any currency uses) and passing a decimal number sends 0.1, like the web demo.
+    private static func jsonNumber(_ value: Double) -> NSDecimalNumber {
+        NSDecimalNumber(string: String(format: "%.3f", value))
     }
 
     private var applePayRecurringPaymentRequest: [String: Any] {

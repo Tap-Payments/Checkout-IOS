@@ -7,3 +7,6 @@ DerivedData/
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
 /CocoaPodsExample/Pods
+
+# Argent device-tool data (screen recordings, flows)
+/.argent
