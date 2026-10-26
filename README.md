@@ -224,7 +224,7 @@ The configuration is a `[String: Any]` dictionary that mirrors the Tap web check
 | `cardOptions.cardFundingSource` | String | `all`, `credit`, `debit` | `all` |
 | `cardOptions.saveCardOption` | String | `all`, `merchant`, `tap`, `none` | `all` |
 | `cardOptions.forceLtr` | Bool | | `false` |
-| `cardOptions.alternativeCardInputs.cardScanner` | Bool | iOS only (not in the web demo): shows the native card scanner button. Needs `NSCameraUsageDescription`. | omit |
+| `cardOptions.alternativeCardInputs.cardScanner` | Bool | Shows the native card scanner button. Needs `NSCameraUsageDescription`. | omit |
 
 ### Order
 
