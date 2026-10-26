@@ -1,0 +1,17 @@
+platform :ios, '15.0'
+
+target 'CocoaPodsExample' do
+  use_frameworks!
+
+  pod 'Checkout-IOS', :git => 'https://github.com/Tap-Payments/Checkout-IOS.git', :tag => '1.0.4'
+end
+
+# Xcode 27 only builds iOS 15.0 and later, but several dependency pods still
+# declare older minimums. Raise every pod target so the project compiles.
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+    end
+  end
+end
