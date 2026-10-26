@@ -1,0 +1,65 @@
+# Publishes Checkout-IOS to CocoaPods trunk.
+#
+# Runs on a GitHub macOS runner with Xcode 16, because newer Xcode versions only build for
+# iOS 15+ and fail `pod trunk push` validation on the dependencies' lower deployment targets.
+#
+# Triggered by pushing a version tag (ex 1.0.5), or manually for an existing tag.
+# Needs the COCOAPODS_TRUNK_TOKEN repository secret (the trunk.cocoapods.org password in ~/.netrc).
+
+name: Publish CocoaPod
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to publish, ex 1.0.4'
+        required: true
+
+env:
+  # The podspec reads its version from this file.
+  VERSION_FILE: Sources/Checkout-IOS/Logic/Private/utils/CheckoutSDKVersion.swift
+
+jobs:
+  publish:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Select Xcode 16.4
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app
+
+      - name: Check SDK version matches the tag
+        run: |
+          TAG="${{ inputs.tag || github.ref_name }}"
+          VERSION=$(sed -nE 's/.*current = "([^"]+)".*/\1/p' "$VERSION_FILE")
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "Tag $TAG does not match SDK version $VERSION"
+            exit 1
+          fi
+
+      # Trunk sometimes times out on its GitHub commit after the version is already registered,
+      # and rejects a re-run as a duplicate. In both cases check trunk itself before failing.
+      - name: Push to trunk
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+          LANG: en_US.UTF-8
+        run: |
+          VERSION=$(sed -nE 's/.*current = "([^"]+)".*/\1/p' "$VERSION_FILE")
+          if pod trunk push Checkout-IOS.podspec --allow-warnings; then
+            exit 0
+          fi
+          echo "pod trunk push failed, checking whether $VERSION was registered anyway"
+          for attempt in 1 2 3 4 5; do
+            if pod trunk info Checkout-IOS | grep -qE "^\s+- $VERSION \("; then
+              echo "Checkout-IOS $VERSION is on trunk, treating the push as successful"
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "Checkout-IOS $VERSION is not on trunk"
+          exit 1

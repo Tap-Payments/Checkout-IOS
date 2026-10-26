@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 import SharedDataModels_iOS
 import CoreTelephony
 import SwiftEntryKit
@@ -113,9 +112,13 @@ extension CheckoutViewController {
         guard let webView = self.webView else {
             return
         }
-        webView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 }
 

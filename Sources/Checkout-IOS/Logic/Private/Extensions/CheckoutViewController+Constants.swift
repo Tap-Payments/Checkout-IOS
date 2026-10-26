@@ -7,7 +7,6 @@
 
 
 import UIKit
-import SnapKit
 import SharedDataModels_iOS
 import CoreTelephony
 import SwiftEntryKit
