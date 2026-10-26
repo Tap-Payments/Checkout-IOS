@@ -5,7 +5,6 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 ![Platform](https://img.shields.io/badge/platform-iOS-blue)
 ![Swift Package Manager](https://img.shields.io/badge/SPM-supported-brightgreen)
 ![CocoaPods](https://img.shields.io/badge/CocoaPods-supported-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 - [Requirements](#requirements)
 - [Installation](#installation)
@@ -17,7 +16,6 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 - [Sandbox vs production](#sandbox-vs-production)
 - [Example apps](#example-apps)
 - [Troubleshooting](#troubleshooting)
-- [License](#license)
 
 ## Requirements
 
@@ -25,7 +23,6 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 |---|---|---|
 | Minimum iOS | 13.0 (as declared in `Package.swift`) | 15.0 |
 | Xcode | Latest stable | Latest stable (Xcode 27 builds iOS 15+ only) |
-| Network | Internet access to `mw-sdk.tap.company` | same |
 
 > [!NOTE]
 > Current release: **1.0.5**. Replace the version in the snippets below with the latest tag from the [releases page](https://github.com/Tap-Payments/Checkout-IOS/tags).
@@ -182,7 +179,7 @@ All five methods of `CheckoutSDKDelegate` are required. The `data` argument is a
 
 ## Configuration reference
 
-The configuration is a `[String: Any]` dictionary that mirrors the Tap web checkout demo. Dotted paths mean nested dictionaries (`gateway.publicKey` is `["gateway": ["publicKey": ...]]`). Defaults are those of the web demo; "omit" means the key should not be sent. The SDK reads only `gateway.publicKey` and `language` itself; everything else is forwarded to the Tap backend.
+The configuration is a `[String: Any]` dictionary that mirrors the Tap web checkout demo. Dotted paths mean nested dictionaries (`gateway.publicKey` is `["gateway": ["publicKey": ...]]`). Defaults are the values the example apps send, which match the web demo; "omit" means the key is not sent. The SDK reads only `gateway.publicKey` and `language` itself; everything else is forwarded to the Tap backend.
 
 ### SDK and gateway
 
@@ -192,8 +189,7 @@ The configuration is a `[String: Any]` dictionary that mirrors the Tap web check
 | `gateway.merchantId` | String | Merchant id associated with the key | omit |
 | `hashString` | String | Hash generated on your server (see [Sandbox vs production](#sandbox-vs-production)) | `""` |
 | `language` | String | `en`, `ar` | `en` |
-| `themeMode` | String | `light`, `dark`, `light_mono`, `dark_colored`; omit for automatic | omit |
-| `checkoutMode` | String | `popup`, `page` | `popup` |
+| `themeMode` | String | `light`, `dark`, `light_mono`, `dark_colored` | `light` |
 | `paymentType` | String | `ALL`, `WEB`, `CARD`, `DEVICE` | `ALL` |
 | `supportedPaymentMethods` | String or [String] | `"ALL"` or any of `AMERICAN_EXPRESS`, `APPLE_PAY`, `BENEFIT`, `BENEFITPAY`, `CAREEMPAY`, `FAWRY`, `GOOGLE_PAY`, `KNET`, `MADA`, `MASTERCARD`, `MEEZA`, `OMANNET`, `PAYPAL`, `POST_PAY`, `NAPS`, `STC_PAY`, `TABBY`, `VISA` | `"ALL"` |
 | `selectedCurrency` | String | `KWD`, `BHD`, `SAR`, `AED`, `OMR`, `EGP`, `GBP`, `USD`, `EUR` | `SAR` |
@@ -202,6 +198,8 @@ The configuration is a `[String: Any]` dictionary that mirrors the Tap web check
 | `supportedCountries` | [String] | ISO alpha-2 country codes | omit |
 | `supportedPaymentTypes` | [String] | `CARD`, `DEVICE_WALLET`, `EXPRESS_CHECKOUT_WALLET`, `PASS_THRU_WALLET`, `STORED_VALUE_WALLET`, `CASH_WALLET`, `BNPL` | omit |
 | `supportedSchemes` | [String] | `BENEFIT`, `VISA`, `AMEX`, `MASTERCARD`, `MADA`, `MEEZA`, `OMANNET` | omit |
+| `isApplePayAvailableOnClient` | Bool | | `true` |
+| `open` | Bool | Always `true` (the web SDK adds it too) | `true` |
 
 ### Customer
 
@@ -226,7 +224,7 @@ The configuration is a `[String: Any]` dictionary that mirrors the Tap web check
 | `cardOptions.cardFundingSource` | String | `all`, `credit`, `debit` | `all` |
 | `cardOptions.saveCardOption` | String | `all`, `merchant`, `tap`, `none` | `all` |
 | `cardOptions.forceLtr` | Bool | | `false` |
-| `cardOptions.alternativeCardInputs.cardScanner` | Bool | iOS only (not in the web demo): shows the native card scanner button. Needs `NSCameraUsageDescription`. | omit |
+| `cardOptions.alternativeCardInputs.cardScanner` | Bool | Shows the native card scanner button. Needs `NSCameraUsageDescription`. | omit |
 
 ### Order
 
@@ -257,8 +255,10 @@ The configuration is a `[String: Any]` dictionary that mirrors the Tap web check
 | `transaction.<mode>.auto.time` | Number | Hours before the automatic action | `100` |
 | `transaction.<mode>.agreement.type` | String | `SCHEDULED`, `UNSCHEDULED` (recurring / saved agreements) | omit |
 | `transaction.<mode>.agreement.amount_variability` | String | `FIXED`, `VARIABLE` (scheduled only) | `FIXED` |
+| `transaction.<mode>.subscription.type` | String | `SCHEDULED` (not sent when the agreement type is `UNSCHEDULED`) | `SCHEDULED` |
+| `transaction.<mode>.subscription.amount_variability` | String | `FIXED`, `VARIABLE` | `FIXED` |
 | `transaction.<mode>.subscription.txn_count` | Number | Number of payments; `0` means undefined | `0` |
-| `transaction.<mode>.airline.reference.booking` | String | Airline booking reference | omit |
+| `transaction.<mode>.airline.reference.booking` | String | Airline booking reference. `airline` is sent by default; leave it out to disable it. | `""` |
 
 `<mode>` is the value of `transaction.mode`.
 
@@ -353,7 +353,3 @@ Before running, open `Keys.swift` and replace the placeholder `YOUR_TAP_PUBLIC_K
 | No callbacks arrive | Your delegate was deallocated. The SDK holds it weakly; retain it. |
 | Blank sheet, nothing happens | Check connectivity and that `gateway.publicKey` is valid. |
 | Sheet does not appear | Return a view controller that is currently on screen from `controller`; the sheet is presented from it. |
-
-## License
-
-Released under the MIT license. See [LICENSE](LICENSE).
