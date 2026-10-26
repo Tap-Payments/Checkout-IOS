@@ -40,6 +40,7 @@ class ViewController: UIViewController {
         textView.backgroundColor = .secondarySystemBackground
         textView.layer.cornerRadius = 8
         textView.text = "Callbacks will appear here..."
+        textView.accessibilityIdentifier = "callbackLog"
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -84,12 +85,22 @@ class ViewController: UIViewController {
         summaryLabel.text = "\(mode) · \(settings.totalAmount.formatted) \(settings.selectedCurrency)"
     }
 
+    private var didAutoStart = false
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UITestHooks.autoStart && !didAutoStart {
+            didAutoStart = true
+            startCheckout()
+        }
+    }
+
     @objc private func openSettings() {
         navigationController?.pushViewController(SettingsViewController(), animated: true)
     }
 
     @objc private func startCheckout() {
-        guard settings.hasPublicKey else {
+        guard settings.hasPublicKey || UITestHooks.isActive else {
             let alert = UIAlertController(
                 title: "Public key missing",
                 message: "Set your Tap sandbox public key in Keys.swift (Keys.publicKey), or enter it in Settings > SDK Configuration > Public Key.",
@@ -100,7 +111,7 @@ class ViewController: UIViewController {
             return
         }
         // The SDK takes a plain dictionary; `makeConfiguration()` builds it like the Tap web demo does.
-        CheckoutSDK().start(configurations: settings.makeConfiguration(), delegate: self)
+        CheckoutSDK().start(configurations: UITestHooks.apply(to: settings.makeConfiguration()), delegate: self)
     }
 
     private func addCallbackMessage(_ message: String) {
