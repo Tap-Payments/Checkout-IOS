@@ -61,6 +61,16 @@
                ReferencedContainer = "container:SPMExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CAF3ECC395AD6EF5398EB39C"
+               BuildableName = "SPMExampleTests.xctest"
+               BlueprintName = "SPMExampleTests"
+               ReferencedContainer = "container:SPMExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

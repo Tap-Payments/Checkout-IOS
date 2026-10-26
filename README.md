@@ -7,6 +7,7 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 ![CocoaPods](https://img.shields.io/badge/CocoaPods-supported-brightgreen)
 
 - [Requirements](#requirements)
+- [How it works](#how-it-works)
 - [Installation](#installation)
 - [Info.plist](#infoplist)
 - [Quick start](#quick-start)
@@ -15,6 +16,7 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 - [Charge vs Authorize](#charge-vs-authorize)
 - [Sandbox vs production](#sandbox-vs-production)
 - [Example apps](#example-apps)
+- [Tests](#tests)
 - [Troubleshooting](#troubleshooting)
 
 ## Requirements
@@ -26,6 +28,22 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 
 > [!NOTE]
 > Current release: **1.0.5**. Replace the version in the snippets below with the latest tag from the [releases page](https://github.com/Tap-Payments/Checkout-IOS/tags).
+
+## How it works
+
+```mermaid
+sequenceDiagram
+    participant A as Your app
+    participant T as Tap
+    participant C as Checkout-IOS
+
+    A->>T: Register your bundle id
+    T-->>A: Public key
+    A->>C: CheckoutSDK().start(configurations:delegate:)
+    C-->>A: onReady()
+    C-->>A: onChargeCreated(data:)
+    C-->>A: onSuccess(data:) / onError(data:) / onClose()
+```
 
 ## Installation
 
@@ -175,7 +193,7 @@ All five methods of `CheckoutSDKDelegate` are required. The `data` argument is a
 | `onClose()` | The user closed the checkout. | none | Yes, before the callback |
 
 > [!TIP]
-> Treat `onSuccess` as "the flow finished" and confirm the final payment status on your server using the charge id from the payload.
+> Treat `onSuccess` as "the flow finished". After 3D Secure its payload is `{"chargeId":"chg_..."}`; confirm the final payment status on your server with the Retrieve Charge API ([Charges reference](https://developers.tap.company/reference/charges)) (`GET /v2/charges/{charge_id}`).
 
 ## Configuration reference
 
@@ -342,6 +360,24 @@ Before running, open `Keys.swift` and replace the placeholder `YOUR_TAP_PUBLIC_K
 | Card number | Expiry | CVV |
 |---|---|---|
 | 4508 7500 1574 1019 | 01/39 | 100 |
+
+## Tests
+
+**Unit tests** ([`SPMExampleTests`](SPMExample/SPMExampleTests)) check, on a simulator and without the network, that the example app builds the configuration with the defaults and rules documented above:
+
+```bash
+xcodebuild test -project SPMExample/SPMExample.xcodeproj -scheme SPMExample \
+  -destination 'platform=iOS Simulator,name=iPhone 17' -only-testing:SPMExampleTests
+```
+
+**UI tests** ([`ReadmeConfigurationTests`](SPMExample/SPMExampleUITests/ReadmeConfigurationTests.swift)) start the checkout against the Tap sandbox, once per configuration value in this README, and check what the sheet shows or what the created charge contains. Each test prints a `RESULT |` line and attaches a screenshot. Pass a sandbox key; it is never committed:
+
+```bash
+TEST_RUNNER_TAP_PUBLIC_KEY=pk_test_... xcodebuild test -project SPMExample/SPMExample.xcodeproj -scheme SPMExample \
+  -destination 'platform=iOS Simulator,name=iPhone 17' -only-testing:SPMExampleUITests
+```
+
+Without the key the UI tests are skipped.
 
 ## Troubleshooting
 
