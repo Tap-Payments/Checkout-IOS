@@ -1,5 +1,5 @@
 {
-  "originHash" : "3221fedb74748eb562cbd94122f7ab44d0e192974f28f96b1e034c21b752eba7",
+  "originHash" : "bc5be6523054e9eb7a2525e769faa1bbea0f6b337bb2085e3248b646b38dc751",
   "pins" : [
     {
       "identity" : "quicklayout",
@@ -20,30 +20,12 @@
       }
     },
     {
-      "identity" : "snapkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SnapKit/SnapKit.git",
-      "state" : {
-        "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
-        "version" : "5.7.1"
-      }
-    },
-    {
       "identity" : "swiftentrykit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/huri000/SwiftEntryKit.git",
       "state" : {
         "revision" : "c2d42574e4fe4e1f9719843f35add7922942a16b",
         "version" : "1.2.7"
-      }
-    },
-    {
-      "identity" : "swiftyrsa",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/TakeScoop/SwiftyRSA.git",
-      "state" : {
-        "revision" : "6521919ad0e99dff927685f142d8136479acb452",
-        "version" : "1.8.0"
       }
     },
     {

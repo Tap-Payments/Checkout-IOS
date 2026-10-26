@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'o.rabie' => 'o.rabie@tap.company', 'h.sheshtawy' => 'h.sheshtawy@tap.company', 'm.allam' => 'm.allam@tap.company' }
   s.source           = { :git => 'https://github.com/Tap-Payments/Checkout-IOS.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '13.0'
+  s.ios.deployment_target = '15.0'
   s.swift_version = '5.0'
   s.source_files = 'Sources/Checkout-IOS/Logic/**/*.swift'
   s.resource_bundles = {
@@ -15,8 +15,6 @@ Pod::Spec.new do |s|
   }  
   s.preserve_paths = 'Sources/Checkout-IOS/Resources/**/*'
   s.dependency'SwiftEntryKit'
-  s.dependency'SwiftyRSA'
-  s.dependency'SnapKit'
   s.dependency'SharedDataModels-iOS'
   s.dependency'TapCardScannerWebWrapper-iOS'
   s.dependency'TapFontKit-iOS'
