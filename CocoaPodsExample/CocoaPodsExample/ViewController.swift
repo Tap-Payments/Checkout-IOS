@@ -81,7 +81,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Tap Checkout"
-        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemGroupedBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(openSettings))
 
@@ -302,21 +301,14 @@ class ViewController: UIViewController {
         CheckoutSDK().start(configurations: UITestHooks.apply(to: settings.makeConfiguration()), delegate: self)
     }
 
-    private var loadingTimeout: DispatchWorkItem?
-
+    /// Until the sheet is ready, closes or fails. The SDK reports a checkout that cannot load through onError.
     private func setLoading(_ loading: Bool) {
         DispatchQueue.main.async {
-            self.loadingTimeout?.cancel()
             var configuration = self.checkoutButton.configuration
             configuration?.showsActivityIndicator = loading
             configuration?.title = loading ? "Opening checkout…" : "Start Checkout"
             self.checkoutButton.configuration = configuration
             self.checkoutButton.isEnabled = !loading
-            guard loading else { return }
-            // A checkout that never loads gives the button back after a minute.
-            let timeout = DispatchWorkItem { [weak self] in self?.setLoading(false) }
-            self.loadingTimeout = timeout
-            DispatchQueue.main.asyncAfter(deadline: .now() + 60, execute: timeout)
         }
     }
 
