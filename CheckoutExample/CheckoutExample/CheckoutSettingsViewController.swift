@@ -294,9 +294,9 @@ class CheckoutSettingsViewController: FormViewController {
         <<< TextRow("gateway.publicKey"){ row in
             row.title = "Public Key"
             row.placeholder = "Enter your public key here"
-            row.value = (config?["gateway"] as? [String: Any])?["publicKey"] as? String ?? "pk_test_ohzQrUWRnTkCLD1cqMeudyjX"
+            row.value = (config?["gateway"] as? [String: Any])?["publicKey"] as? String ?? "YOUR_TAP_PUBLIC_KEY"
             row.onChange { row in
-                self.config?.updateAllOccurrences(ofKey: "publicKey", with: row.value ?? "pk_test_ohzQrUWRnTkCLD1cqMeudyjX")
+                self.config?.updateAllOccurrences(ofKey: "publicKey", with: row.value ?? "YOUR_TAP_PUBLIC_KEY")
             }
         }
         <<< TextRow("gateway.merchantId"){ row in

@@ -68,7 +68,7 @@ class ViewController: UIViewController, CheckoutSettingsViewControllerDelegate {
         "supportedSchemes": [],
         "supportedCountries": [],
         "gateway": [
-            "publicKey": "pk_test_ohzQrUWRnTkCLD1cqMeudyjX",
+            "publicKey": "YOUR_TAP_PUBLIC_KEY",
             "merchantId": ""
         ],
         "customer": [

@@ -2,7 +2,8 @@
 //  ViewController.swift
 //  CocoaPodsExample
 //
-//  Minimal Checkout-IOS integration: start the checkout and log every callback.
+//  Checkout-IOS integration: build the configuration from the saved settings, start the checkout
+//  and log every callback. The Settings screen edits the same inputs as the Tap web demo.
 //
 
 import UIKit
@@ -20,6 +21,17 @@ class ViewController: UIViewController {
         return button
     }()
 
+    /// Shows what the next checkout will do: charge or authorize, and for how much.
+    private lazy var summaryLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textColor = .secondaryLabel
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     private lazy var callbacksTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = false
@@ -34,69 +46,17 @@ class ViewController: UIViewController {
 
     private var callbackMessages: [String] = []
 
-    // Sandbox configuration; replace the public key with your own.
-    private let configurations: [String: Any] = [
-        "hashString": "",
-        "language": "en",
-        "themeMode": "light",
-        "supportedPaymentMethods": "ALL",
-        "paymentType": "ALL",
-        "selectedCurrency": "KWD",
-        "supportedCurrencies": "ALL",
-        "gateway": [
-            "publicKey": "pk_test_ohzQrUWRnTkCLD1cqMeudyjX",
-            "merchantId": ""
-        ],
-        "customer": [
-            "firstName": "Android",
-            "lastName": "Test",
-            "email": "example@gmail.com",
-            "phone": [
-                "countryCode": "965",
-                "number": "55567890"
-            ]
-        ],
-        "transaction": [
-            "mode": "charge",
-            "charge": [
-                "saveCard": true,
-                "redirect": [
-                    "url": "https://demo.staging.tap.company/v2/sdk/checkout"
-                ],
-                "threeDSecure": true
-            ]
-        ],
-        "amount": "5",
-        "order": [
-            "id": "",
-            "currency": "KWD",
-            "amount": "5",
-            "items": [
-                [
-                    "amount": "5",
-                    "currency": "KWD",
-                    "name": "Item Title 1",
-                    "quantity": 1,
-                    "description": "item description 1"
-                ]
-            ]
-        ],
-        "cardOptions": [
-            "showBrands": true,
-            "collectHolderName": true,
-            "cardFundingSource": "all",
-            "saveCardOption": "all",
-            "alternativeCardInputs": [
-                "cardScanner": true
-            ]
-        ],
-        "isApplePayAvailableOnClient": true,
-    ]
+    /// Edited in the Settings screen and persisted in UserDefaults; reloaded whenever this screen appears.
+    private var settings = CheckoutSettings.load()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Tap Checkout"
         view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(openSettings))
+
         view.addSubview(checkoutButton)
+        view.addSubview(summaryLabel)
         view.addSubview(callbacksTextView)
 
         let guide = view.safeAreaLayoutGuide
@@ -106,15 +66,41 @@ class ViewController: UIViewController {
             checkoutButton.widthAnchor.constraint(equalToConstant: 200),
             checkoutButton.heightAnchor.constraint(equalToConstant: 50),
 
-            callbacksTextView.topAnchor.constraint(equalTo: checkoutButton.bottomAnchor, constant: 30),
+            summaryLabel.topAnchor.constraint(equalTo: checkoutButton.bottomAnchor, constant: 12),
+            summaryLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            summaryLabel.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+
+            callbacksTextView.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: 20),
             callbacksTextView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             callbacksTextView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
             callbacksTextView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -20),
         ])
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        settings = CheckoutSettings.load()
+        let mode = settings.mode == "authorize" ? "Authorize (\(settings.authorizeType))" : "Charge"
+        summaryLabel.text = "\(mode) · \(settings.totalAmount.formatted) \(settings.selectedCurrency)"
+    }
+
+    @objc private func openSettings() {
+        navigationController?.pushViewController(SettingsViewController(), animated: true)
+    }
+
     @objc private func startCheckout() {
-        CheckoutSDK().start(configurations: configurations, delegate: self)
+        guard settings.hasPublicKey else {
+            let alert = UIAlertController(
+                title: "Public key missing",
+                message: "Set your Tap sandbox public key in Keys.swift (Keys.publicKey), or enter it in Settings > SDK Configuration > Public Key.",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
+        // The SDK takes a plain dictionary; `makeConfiguration()` builds it like the Tap web demo does.
+        CheckoutSDK().start(configurations: settings.makeConfiguration(), delegate: self)
     }
 
     private func addCallbackMessage(_ message: String) {
@@ -124,6 +110,14 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             self.callbacksTextView.text = self.callbackMessages.joined(separator: "\n\n")
         }
+    }
+}
+
+private extension Double {
+    /// 0.1 -> "0.1", 10.0 -> "10" (no trailing ".0").
+    var formatted: String {
+        let text = String(self)
+        return text.hasSuffix(".0") ? String(text.dropLast(2)) : text
     }
 }
 
