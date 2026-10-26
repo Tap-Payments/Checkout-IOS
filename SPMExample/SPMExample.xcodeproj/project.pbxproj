@@ -9,12 +9,18 @@
 /* Begin PBXBuildFile section */
 		11D7BB7468AB4442EB39A1CD /* Checkout-IOS in Frameworks */ = {isa = PBXBuildFile; productRef = AE535EA8916BE86A20D2327D /* Checkout-IOS */; };
 		43464F7D84717BBFD5D17ECC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6FF116B73B05B78A82FCBD /* AppDelegate.swift */; };
+		4CA26FE266F42693779C1BBB /* CheckoutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B826140B5BDDABBF74238 /* CheckoutSettings.swift */; };
 		C64459D0FFC284D9FDA9695A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4447DDDC589CC37E2B90871 /* ViewController.swift */; };
+		D4CABC2408132E44531D3A55 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047311F8A7CEBB234690FC9C /* SettingsViewController.swift */; };
+		E94D46ECCEEDF225E3197133 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8623832606B40CC948C6968C /* Keys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		047311F8A7CEBB234690FC9C /* SettingsViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3C6FF116B73B05B78A82FCBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8623832606B40CC948C6968C /* Keys.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		B4447DDDC589CC37E2B90871 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DB5B826140B5BDDABBF74238 /* CheckoutSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CheckoutSettings.swift; sourceTree = "<group>"; };
 		F73274DCBA699DDE099239A0 /* SPMExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SPMExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,6 +41,9 @@
 			children = (
 				3C6FF116B73B05B78A82FCBD /* AppDelegate.swift */,
 				B4447DDDC589CC37E2B90871 /* ViewController.swift */,
+				8623832606B40CC948C6968C /* Keys.swift */,
+				DB5B826140B5BDDABBF74238 /* CheckoutSettings.swift */,
+				047311F8A7CEBB234690FC9C /* SettingsViewController.swift */,
 			);
 			path = SPMExample;
 			sourceTree = "<group>";
@@ -117,6 +126,9 @@
 			files = (
 				43464F7D84717BBFD5D17ECC /* AppDelegate.swift in Sources */,
 				C64459D0FFC284D9FDA9695A /* ViewController.swift in Sources */,
+				E94D46ECCEEDF225E3197133 /* Keys.swift in Sources */,
+				4CA26FE266F42693779C1BBB /* CheckoutSettings.swift in Sources */,
+				D4CABC2408132E44531D3A55 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,18 +140,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "SPM Example";
 				INFOPLIST_KEY_NSCameraUsageDescription = "scan card";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				MARKETING_VERSION = 1.0;
-				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tap.SPMExample;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -152,18 +164,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "SPM Example";
 				INFOPLIST_KEY_NSCameraUsageDescription = "scan card";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				MARKETING_VERSION = 1.0;
-				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tap.SPMExample;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
