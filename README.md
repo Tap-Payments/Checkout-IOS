@@ -7,6 +7,7 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 ![CocoaPods](https://img.shields.io/badge/CocoaPods-supported-brightgreen)
 
 - [Requirements](#requirements)
+- [How it works](#how-it-works)
 - [Installation](#installation)
 - [Info.plist](#infoplist)
 - [Quick start](#quick-start)
@@ -26,6 +27,22 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 
 > [!NOTE]
 > Current release: **1.0.5**. Replace the version in the snippets below with the latest tag from the [releases page](https://github.com/Tap-Payments/Checkout-IOS/tags).
+
+## How it works
+
+```mermaid
+sequenceDiagram
+    participant A as Your app
+    participant T as Tap
+    participant C as Checkout-IOS
+
+    A->>T: Register your bundle id
+    T-->>A: Public key
+    A->>C: CheckoutSDK().start(configurations:delegate:)
+    C-->>A: onReady()
+    C-->>A: onChargeCreated(data:)
+    C-->>A: onSuccess(data:) / onError(data:) / onClose()
+```
 
 ## Installation
 
@@ -175,7 +192,7 @@ All five methods of `CheckoutSDKDelegate` are required. The `data` argument is a
 | `onClose()` | The user closed the checkout. | none | Yes, before the callback |
 
 > [!TIP]
-> Treat `onSuccess` as "the flow finished" and confirm the final payment status on your server using the charge id from the payload.
+> Treat `onSuccess` as "the flow finished". After 3D Secure its payload is `{"chargeId":"chg_..."}`; confirm the final payment status on your server with the Retrieve Charge API ([Charges reference](https://developers.tap.company/reference/charges)) (`GET /v2/charges/{charge_id}`).
 
 ## Configuration reference
 

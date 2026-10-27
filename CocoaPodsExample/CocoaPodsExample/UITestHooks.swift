@@ -48,7 +48,7 @@ enum UITestHooks {
         return result
     }
 
-    private static func merge(_ base: [String: Any], _ overrides: [String: Any]) -> [String: Any] {
+    static func merge(_ base: [String: Any], _ overrides: [String: Any]) -> [String: Any] {
         var result = base
         for (key, value) in overrides {
             if value is NSNull {
