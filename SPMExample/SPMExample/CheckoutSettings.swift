@@ -24,7 +24,7 @@ struct CheckoutSettings: Codable {
     // MARK: - SDK configuration
 
     var publicKey = Keys.publicKey
-    var merchantId = ""
+    var merchantId = Keys.merchantId
     /// Any of ALL, AUTO, KWD, BHD, SAR, AED, OMR, EGP, GBP, USD, EUR.
     var supportedCurrencies = ["ALL"]
     /// ALL, WEB, CARD or DEVICE.
