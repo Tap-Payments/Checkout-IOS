@@ -89,7 +89,8 @@ extension PoweredByTapView {
         blurView.scale = 1
         blurView.blurRadius = 6
         blurView.colorTint = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        blurView.colorTintAlpha = UIView().traitCollection.userInterfaceStyle == .dark ? 0.32 : 0.06
+        // Dark enough for the white back button and logo on any page behind the popup
+        blurView.colorTintAlpha = 0.32
     }
     
     

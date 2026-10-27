@@ -10,7 +10,9 @@ import Foundation
 
 internal extension Bundle {
     static var currentBundle:Bundle {
-        let bundleName = "Checkout-iOS_Checkout-iOS"
+        // CocoaPods names the bundle from the podspec, SPM from the package and target names.
+        // iOS devices have a case-sensitive file system, so both spellings are tried.
+        let bundleNames = ["Checkout-iOS_Checkout-iOS", "Checkout-IOS_Checkout-IOS"]
 
         let candidates = [
             // Bundle should be present here when the package is linked into an App.
@@ -24,9 +26,11 @@ internal extension Bundle {
         ]
 
         for candidate in candidates {
-            let bundlePath = candidate?.appendingPathComponent(bundleName + ".bundle")
-            if let bundle = bundlePath.flatMap(Bundle.init(url:)) {
-                return bundle
+            for bundleName in bundleNames {
+                let bundlePath = candidate?.appendingPathComponent(bundleName + ".bundle")
+                if let bundle = bundlePath.flatMap(Bundle.init(url:)) {
+                    return bundle
+                }
             }
         }
         return Bundle(for: CheckoutViewController.self)
