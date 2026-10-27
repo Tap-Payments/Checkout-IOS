@@ -26,7 +26,7 @@ Tap Payments' iOS checkout SDK. Present a full Tap checkout sheet from your app,
 | Xcode | Latest stable | Latest stable (Xcode 27 builds iOS 15+ only) |
 
 > [!NOTE]
-> Current release: **1.0.5**. Replace the version in the snippets below with the latest tag from the [releases page](https://github.com/Tap-Payments/Checkout-IOS/tags).
+> Current release: **1.0.7**. Replace the version in the snippets below with the latest tag from the [releases page](https://github.com/Tap-Payments/Checkout-IOS/tags).
 
 ## How it works
 
@@ -58,7 +58,7 @@ Select the `Checkout-IOS` product and add it to your app target. Or, in `Package
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Tap-Payments/Checkout-IOS.git", from: "1.0.5")
+    .package(url: "https://github.com/Tap-Payments/Checkout-IOS.git", from: "1.0.7")
 ],
 targets: [
     .target(name: "YourApp", dependencies: [
@@ -80,7 +80,7 @@ platform :ios, '15.0'
 
 target 'YourApp' do
   use_frameworks!
-  pod 'Checkout-IOS', '~> 1.0.5'
+  pod 'Checkout-IOS', '~> 1.0.7'
 end
 ```
 
