@@ -10,5 +10,5 @@
 /// It can't be read from `Bundle(for:)` because under SPM the SDK is linked into
 /// the host app and that bundle is the merchant app's, not the SDK's.
 internal enum CheckoutSDKVersion {
-    static let current = "1.0.4"
+    static let current = "1.0.5"
 }
