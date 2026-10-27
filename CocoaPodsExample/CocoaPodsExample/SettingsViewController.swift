@@ -137,6 +137,7 @@ final class SettingsViewController: UITableViewController {
             Row(title: "Supported Countries", kind: .multiChoice(\.supportedCountries, Options.countries)),
             Row(title: "Supported Payment Types", kind: .multiChoice(\.supportedPaymentTypes, Options.supportedPaymentTypes)),
             Row(title: "Supported Schemes", kind: .multiChoice(\.supportedSchemes, Options.schemes)),
+            Row(title: "Apple Pay Available On Client", kind: .toggle(\.isApplePayAvailableOnClient)),
         ])
     }
 
@@ -193,11 +194,14 @@ final class SettingsViewController: UITableViewController {
         var rows = [Row(title: "Transaction Mode", kind: .choice(\.mode, Options.modes))]
         if settings.mode == "authorize" {
             rows.append(Row(title: "Authorize Type", kind: .choice(\.authorizeType, Options.authorizeTypes)))
+            rows.append(Row(title: "Authorize Time (hours)", kind: .integer(\.authorizeTime)))
         }
         rows += [
             Row(title: "Theme", kind: .choice(\.theme, Options.themes)),
             Row(title: "Checkout Mode", kind: .choice(\.checkoutMode, Options.checkoutModes)),
             Row(title: "3D Secure", kind: .toggle(\.threeDSecure)),
+            Row(title: "Save Card", kind: .toggle(\.saveCard)),
+            Row(title: "Redirect URL", kind: .text(\.redirectUrl, keyboard: .URL)),
             Row(title: "Hashstring", kind: .text(\.hashString, keyboard: .asciiCapable)),
             Row(title: "Agreed payment", kind: .toggle(\.agreedPayment)),
         ]
@@ -441,7 +445,7 @@ private final class OptionPickerViewController: UITableViewController {
 
 // MARK: - Configuration JSON viewer
 
-private final class ConfigurationJSONViewController: UIViewController {
+final class ConfigurationJSONViewController: UIViewController {
     private let configuration: [String: Any]
 
     init(configuration: [String: Any]) {

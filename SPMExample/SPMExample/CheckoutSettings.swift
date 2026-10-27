@@ -24,7 +24,7 @@ struct CheckoutSettings: Codable {
     // MARK: - SDK configuration
 
     var publicKey = Keys.publicKey
-    var merchantId = ""
+    var merchantId = Keys.merchantId
     /// Any of ALL, AUTO, KWD, BHD, SAR, AED, OMR, EGP, GBP, USD, EUR.
     var supportedCurrencies = ["ALL"]
     /// ALL, WEB, CARD or DEVICE.
@@ -37,6 +37,7 @@ struct CheckoutSettings: Codable {
     var supportedCountries: [String] = []
     var supportedPaymentTypes: [String] = []
     var supportedSchemes: [String] = []
+    var isApplePayAvailableOnClient = true
 
     // MARK: - User configuration
 
@@ -79,9 +80,14 @@ struct CheckoutSettings: Codable {
     /// popup or page.
     var checkoutMode = "popup"
     var threeDSecure = true
+    var saveCard = true
+    /// `transaction.<mode>.redirect.url`; the web demo returns to its own page.
+    var redirectUrl = CheckoutSettings.redirectURL
     var hashString = ""
     /// CAPTURE or VOID: what happens automatically to an authorization. Only editable in authorize mode.
     var authorizeType = "VOID"
+    /// Hours before `authorizeType` is applied.
+    var authorizeTime = 100
     var agreedPayment = false
     /// SCHEDULED or UNSCHEDULED.
     var agreementType = "SCHEDULED"
@@ -175,7 +181,7 @@ struct CheckoutSettings: Codable {
                 "saveCardOption": saveCardOption,
                 "forceLtr": forceLtr,
             ].merging(cardScanner ? ["alternativeCardInputs": ["cardScanner": true]] : [:]) { $1 },
-            "isApplePayAvailableOnClient": true,
+            "isApplePayAvailableOnClient": isApplePayAvailableOnClient,
         ]
 
         // "auto" means "let the checkout decide": the key is not sent at all.
@@ -239,10 +245,10 @@ struct CheckoutSettings: Codable {
     /// name of this object (and `transaction.mode`) differs.
     private var transaction: [String: Any] {
         var transaction: [String: Any] = [
-            "saveCard": true,
-            // Sent in both modes. `type` only matters (and is only editable) for authorizations.
-            "auto": ["type": authorizeType, "time": 100],
-            "redirect": ["url": Self.redirectURL],
+            "saveCard": saveCard,
+            // Sent in both modes. `type` and `time` only matter (and are only editable) for authorizations.
+            "auto": ["type": authorizeType, "time": authorizeTime],
+            "redirect": ["url": redirectUrl],
             "threeDSecure": threeDSecure,
         ]
 
