@@ -80,9 +80,21 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Tap Checkout"
         view.backgroundColor = .systemGroupedBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(openSettings))
+        // Same bar as the Android example: a bold title on the left and a plain SETTINGS action.
+        navigationItem.backButtonTitle = "Tap Checkout"
+        let titleLabel = UILabel()
+        titleLabel.text = "Tap Checkout"
+        titleLabel.font = .systemFont(ofSize: 22, weight: .bold)
+        let titleItem = UIBarButtonItem(customView: titleLabel)
+        let settingsItem = UIBarButtonItem(title: "SETTINGS", style: .plain, target: self, action: #selector(openSettings))
+        settingsItem.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 15, weight: .medium), .foregroundColor: UIColor.systemBlue], for: .normal)
+        if #available(iOS 26.0, *) {
+            titleItem.hidesSharedBackground = true
+            settingsItem.hidesSharedBackground = true
+        }
+        navigationItem.leftBarButtonItem = titleItem
+        navigationItem.rightBarButtonItem = settingsItem
 
         buildLayout()
         renderCallbacks()
@@ -524,12 +536,14 @@ private final class ConfigRow: UIStackView {
         let labelView = UILabel()
         labelView.text = label
         labelView.textColor = .secondaryLabel
+        labelView.font = .systemFont(ofSize: 15)
         labelView.setContentHuggingPriority(.required, for: .horizontal)
         labelView.setContentCompressionResistancePriority(.required, for: .horizontal)
         let valueView = UILabel()
         valueView.text = value
         valueView.textAlignment = .right
         valueView.lineBreakMode = .byTruncatingTail
+        valueView.font = .systemFont(ofSize: 15)
         addArrangedSubview(labelView)
         addArrangedSubview(valueView)
         spacing = 16
