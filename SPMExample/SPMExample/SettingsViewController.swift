@@ -57,6 +57,7 @@ private enum FormAction {
     case removeItem(Int)
     case showJSON
     case reset
+    case pickSavedKey
 }
 
 private struct Row {
@@ -125,7 +126,9 @@ final class SettingsViewController: UITableViewController {
     }
 
     private var sdkSection: Section {
-        Section(title: "SDK Configuration", footer: "Defaults to the key in Keys.swift. Under each public key there can be several merchant ids; use the one that belongs to it.", rows: [
+        // Saved Keys appears only when keys.local.json has keys (Debug simulator builds).
+        let savedKeys = LocalKeys.all.isEmpty ? [] : [Row(title: "Saved Keys", kind: .disclosure(.pickSavedKey))]
+        return Section(title: "SDK Configuration", footer: "Defaults to the key in Keys.swift. Under each public key there can be several merchant ids; use the one that belongs to it.", rows: savedKeys + [
             Row(title: "Public Key", kind: .text(\.publicKey, keyboard: .asciiCapable)),
             Row(title: "Merchant Id", kind: .text(\.merchantId, keyboard: .asciiCapable)),
             Row(title: "Supported Currencies", kind: .multiChoice(\.supportedCurrencies, Options.supportedCurrencies)),
@@ -312,9 +315,11 @@ final class SettingsViewController: UITableViewController {
             cell.configure(title: row.title, detail: nil, style: destructive ? .destructive : .action)
             return cell
 
-        case .disclosure:
+        case .disclosure(let action):
             let cell = tableView.dequeueReusableCell(withIdentifier: ValueCell.reuseIdentifier, for: indexPath) as! ValueCell
-            cell.configure(title: row.title, detail: nil, style: .disclosure)
+            var detail: String?
+            if case .pickSavedKey = action { detail = currentSavedKey?.name ?? "Custom" }
+            cell.configure(title: row.title, detail: detail, style: .disclosure)
             return cell
         }
     }
@@ -375,7 +380,22 @@ final class SettingsViewController: UITableViewController {
                 self?.rebuildAndReload()
             })
             present(alert, animated: true)
+        case .pickSavedKey:
+            let keys = LocalKeys.all
+            let options = keys.indices.map { Option(String($0), title: keys[$0].name) }
+            let selection = currentSavedKey.flatMap { current in keys.firstIndex { $0.name == current.name } }.map { [String($0)] } ?? []
+            let picker = OptionPickerViewController(title: "Saved Keys", options: options, selection: selection, allowsMultiple: false) { [weak self] in
+                guard let index = $0.first.flatMap(Int.init), keys.indices.contains(index) else { return }
+                self?.settings.publicKey = keys[index].publicKey
+                self?.settings.merchantId = keys[index].merchantId ?? ""
+            }
+            navigationController?.pushViewController(picker, animated: true)
         }
+    }
+
+    /// The saved key that matches the public key and merchant id in use, if any.
+    private var currentSavedKey: LocalKey? {
+        LocalKeys.all.first { $0.publicKey == settings.publicKey && ($0.merchantId ?? "") == settings.merchantId }
     }
 
     private func rebuildAndReload() {

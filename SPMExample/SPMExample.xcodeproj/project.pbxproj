@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11D7BB7468AB4442EB39A1CD /* Checkout-IOS in Frameworks */ = {isa = PBXBuildFile; productRef = AE535EA8916BE86A20D2327D /* Checkout-IOS */; };
+		1532BDA9977AC1BD4C9D511A /* LocalKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEE877176709A3BC55CD431 /* LocalKeys.swift */; };
 		43464F7D84717BBFD5D17ECC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6FF116B73B05B78A82FCBD /* AppDelegate.swift */; };
 		4CA26FE266F42693779C1BBB /* CheckoutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B826140B5BDDABBF74238 /* CheckoutSettings.swift */; };
 		4DBA87FFCBE57FE5F2471A9E /* CheckoutSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00C3CF83BA50B90A51D84D6 /* CheckoutSettingsTests.swift */; };
@@ -47,6 +48,7 @@
 		B4447DDDC589CC37E2B90871 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BA870A560132DC657408BA03 /* ReadmeConfigurationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReadmeConfigurationTests.swift; sourceTree = "<group>"; };
 		BC59CCE4FEB0473756AABE4C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CAEE877176709A3BC55CD431 /* LocalKeys.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalKeys.swift; sourceTree = "<group>"; };
 		DB5B826140B5BDDABBF74238 /* CheckoutSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CheckoutSettings.swift; sourceTree = "<group>"; };
 		F00C3CF83BA50B90A51D84D6 /* CheckoutSettingsTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CheckoutSettingsTests.swift; sourceTree = "<group>"; };
 		F73274DCBA699DDE099239A0 /* SPMExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SPMExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +91,7 @@
 				DB5B826140B5BDDABBF74238 /* CheckoutSettings.swift */,
 				047311F8A7CEBB234690FC9C /* SettingsViewController.swift */,
 				06A92F0B6122DED7680EF958 /* UITestHooks.swift */,
+				CAEE877176709A3BC55CD431 /* LocalKeys.swift */,
 			);
 			path = SPMExample;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				4CA26FE266F42693779C1BBB /* CheckoutSettings.swift in Sources */,
 				D4CABC2408132E44531D3A55 /* SettingsViewController.swift in Sources */,
 				BDAE838EF5A10584647CE411 /* UITestHooks.swift in Sources */,
+				1532BDA9977AC1BD4C9D511A /* LocalKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
