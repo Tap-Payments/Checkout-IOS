@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     'Checkout-iOS_Checkout-iOS' => ['Sources/Checkout-IOS/Resources/**/*.{xcassets,json,xib,pdf,png,gif,storyboard,xcdatamodeld,lproj}']
   }  
   s.preserve_paths = 'Sources/Checkout-IOS/Resources/**/*'
-  s.dependency'SwiftEntryKit'
+  s.dependency'TapSwiftEntryKit'
   s.dependency'SharedDataModels-iOS'
   s.dependency'TapCardScannerWebWrapper-iOS'
   s.dependency'TapFontKit-iOS'
