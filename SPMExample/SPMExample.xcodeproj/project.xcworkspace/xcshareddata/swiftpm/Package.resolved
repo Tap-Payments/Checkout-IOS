@@ -6,17 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Tap-Payments/Checkout-IOS.git",
       "state" : {
-        "revision" : "019f02b74f1eb80fa9260a46f54882003562df54",
-        "version" : "1.0.4"
-      }
-    },
-    {
-      "identity" : "quicklayout",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/huri000/QuickLayout",
-      "state" : {
-        "revision" : "6be62decbe508d8fc8f9dbafc349d05bab03c38b",
-        "version" : "3.0.1"
+        "revision" : "aeaa36d35b875a382f8e6c54e8cfdb1df90d1682",
+        "version" : "1.0.7"
       }
     },
     {
@@ -24,35 +15,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Tap-Payments/SharedDataModels-iOS.git",
       "state" : {
-        "revision" : "1dff74525847544e3e155503acd77f35a2022d7c",
-        "version" : "0.0.13"
-      }
-    },
-    {
-      "identity" : "snapkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SnapKit/SnapKit.git",
-      "state" : {
-        "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
-        "version" : "5.7.1"
+        "revision" : "16a8c45e33bab5033956270a4f79c662fd187c16",
+        "version" : "0.0.14"
       }
     },
     {
       "identity" : "swiftentrykit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/huri000/SwiftEntryKit.git",
+      "location" : "https://github.com/Tap-Payments/SwiftEntryKit.git",
       "state" : {
-        "revision" : "c2d42574e4fe4e1f9719843f35add7922942a16b",
-        "version" : "1.2.7"
-      }
-    },
-    {
-      "identity" : "swiftyrsa",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/TakeScoop/SwiftyRSA.git",
-      "state" : {
-        "revision" : "6521919ad0e99dff927685f142d8136479acb452",
-        "version" : "1.8.0"
+        "revision" : "c7a958a4c67c17ba71ddddbfd99ff5fe9df51adc",
+        "version" : "2.0.2"
       }
     },
     {
@@ -69,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Tap-Payments/TapCardVlidatorKit-iOS.git",
       "state" : {
-        "revision" : "17344baabc49fc3e57f393926b04f757d30f39e8",
-        "version" : "1.0.25"
+        "revision" : "c0f84d2ab6e54ea3671dde059e1716d12be51880",
+        "version" : "1.0.26"
       }
     },
     {
@@ -78,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Tap-Payments/TapFontKit-iOS.git",
       "state" : {
-        "revision" : "eb93da82e1eb70bcac864df8da3c4d916f743860",
-        "version" : "0.0.11"
+        "revision" : "08cc8c405bddcadbdbecdfac119b5196bf514128",
+        "version" : "0.0.12"
       }
     }
   ],

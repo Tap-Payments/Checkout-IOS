@@ -3,7 +3,7 @@ platform :ios, '15.0'
 target 'CocoaPodsExample' do
   use_frameworks!
 
-  pod 'Checkout-IOS', :git => 'https://github.com/Tap-Payments/Checkout-IOS.git', :tag => '1.0.4'
+  pod 'Checkout-IOS', :git => 'https://github.com/Tap-Payments/Checkout-IOS.git', :tag => '1.0.7'
 end
 
 # Xcode 27 only builds iOS 15.0 and later, but several dependency pods still

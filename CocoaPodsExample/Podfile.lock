@@ -1,66 +1,46 @@
 PODS:
-  - Checkout-IOS (1.0.4):
+  - Checkout-IOS (1.0.7):
     - SharedDataModels-iOS
-    - SnapKit
-    - SwiftEntryKit
-    - SwiftyRSA
     - TapCardScannerWebWrapper-iOS
     - TapFontKit-iOS
-  - SharedDataModels-iOS (0.0.12)
-  - SnapKit (5.7.1)
-  - SwiftEntryKit (2.0.0)
-  - SwiftyRSA (1.7.0):
-    - SwiftyRSA/ObjC (= 1.7.0)
-  - SwiftyRSA/ObjC (1.7.0)
-  - TapCardScannerWebWrapper-iOS (0.0.9):
-    - SharedDataModels-iOS
-    - TapCardVlidatorKit-iOS
-  - TapCardVlidatorKit-iOS (1.0.25)
-  - TapFontKit-iOS (0.0.11):
-    - TapSwiftFixesV2
-  - TapSwiftFixesV2 (1.0.3):
-    - TapSwiftFixesV2/CoreGraphics (= 1.0.3)
-    - TapSwiftFixesV2/Exceptions (= 1.0.3)
-    - TapSwiftFixesV2/Threading (= 1.0.3)
-  - TapSwiftFixesV2/CoreGraphics (1.0.3)
-  - TapSwiftFixesV2/Exceptions (1.0.3)
-  - TapSwiftFixesV2/Threading (1.0.3)
+    - TapSwiftEntryKit
+  - SharedDataModels-iOS (0.0.14)
+  - TapCardScannerWebWrapper-iOS (0.0.10):
+    - SharedDataModels-iOS (>= 0.0.14)
+    - TapCardVlidatorKit-iOS (>= 1.0.26)
+  - TapCardVlidatorKit-iOS (1.0.26)
+  - TapFontKit-iOS (0.0.12)
+  - TapSwiftEntryKit (2.0.2)
 
 DEPENDENCIES:
-  - Checkout-IOS (from `https://github.com/Tap-Payments/Checkout-IOS.git`, tag `1.0.4`)
+  - Checkout-IOS (from `https://github.com/Tap-Payments/Checkout-IOS.git`, tag `1.0.7`)
 
 SPEC REPOS:
   trunk:
     - SharedDataModels-iOS
-    - SnapKit
-    - SwiftEntryKit
-    - SwiftyRSA
     - TapCardScannerWebWrapper-iOS
     - TapCardVlidatorKit-iOS
     - TapFontKit-iOS
-    - TapSwiftFixesV2
+    - TapSwiftEntryKit
 
 EXTERNAL SOURCES:
   Checkout-IOS:
     :git: https://github.com/Tap-Payments/Checkout-IOS.git
-    :tag: 1.0.4
+    :tag: 1.0.7
 
 CHECKOUT OPTIONS:
   Checkout-IOS:
     :git: https://github.com/Tap-Payments/Checkout-IOS.git
-    :tag: 1.0.4
+    :tag: 1.0.7
 
 SPEC CHECKSUMS:
-  Checkout-IOS: 60191bc686a1435c89f70b8295f7a9bd53d8013f
-  SharedDataModels-iOS: 03d22b8a256a6ce698180b24d3ff8fefe42707b1
-  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
-  SwiftEntryKit: 61b5fa36f34a97dd8013e48a7345bc4c4720be9a
-  SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
-  TapCardScannerWebWrapper-iOS: 34ebb3f7118fdc156a51d3e4b79aef4497e0f934
-  TapCardVlidatorKit-iOS: 399d7dfcd301a3a5798e39332e15b2008427abbe
-  TapFontKit-iOS: c17f595e4d94b5c5c49fda159596a7f23bdffb94
-  TapSwiftFixesV2: ea726f752b6259d9e44624039fd6bad94b2a8633
+  Checkout-IOS: 4d326e8ef7ea01336455173ed729fc46f55dffb5
+  SharedDataModels-iOS: c01a406594091c60e59e2d6bbe9fd810ab9ec5e9
+  TapCardScannerWebWrapper-iOS: 0c41ce74e5b1889056a863b0aa81147abf4abd11
+  TapCardVlidatorKit-iOS: 5d2edb8881c1d8c55f57bd7691e2af7e3cc9d8a2
+  TapFontKit-iOS: c020790e9d7ef7b99fd9c1bd33f8c6fdc75b30c9
+  TapSwiftEntryKit: a3d866e56247953c6080e26f0263db8302d882c0
 
-PODFILE CHECKSUM: 4897067d5d982d6915c96e05f59639ea5fae3aff
+PODFILE CHECKSUM: 22b2696f39f7f3f05c0482b54efb710a635b71be
 
 COCOAPODS: 1.16.2
