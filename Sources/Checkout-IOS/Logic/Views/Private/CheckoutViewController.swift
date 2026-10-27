@@ -224,14 +224,18 @@ extension CheckoutViewController {
         // Set the selected card locale for correct semantic rendering
         redirectView.selectedLocale = languageCode
         // Set to web view what should it when the process is canceled by the user
+        // The web sdk is told the user went back in `didDisappear`, so closing the popup
+        // by the back button, a tap outside or a swipe all reset the checkout the same way
         redirectView.redirectionViewClosed = {
             SwiftEntryKit.dismiss()
-            self.webView?.evaluateJavaScript("window.returnBack()")
         }
-        // Hide or show the powered by tap based on coming parameter
-        redirectView.poweredByTapView.isHidden = !(redirectionData.powered ?? true)
+        // Hide or show the powered by tap logo based on coming parameter, the back button always shows
+        redirectView.poweredByTapView.poweredByTapImageView.isHidden = !(redirectionData.powered ?? true)
+        // Set when the 3ds finished, so closing the popup is not reported as going back
+        var redirectionCompleted = false
         // Set to web view what should it when the process is completed by the user
         redirectView.redirectionReached = { chargeId in
+            redirectionCompleted = true
             SwiftEntryKit.dismiss {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
@@ -242,7 +246,12 @@ extension CheckoutViewController {
         // Set to web view what should it do when the content is loaded in the background
         redirectView.idleForWhile = {
             DispatchQueue.main.async {
-                SwiftEntryKit.display(entry: redirectView, using: redirectView.swiftEntryAttributes())
+                var attributes = redirectView.swiftEntryAttributes()
+                attributes.lifecycleEvents.didDisappear = { [weak self] in
+                    guard !redirectionCompleted else { return }
+                    self?.webView?.evaluateJavaScript("window.returnBack()")
+                }
+                SwiftEntryKit.display(entry: redirectView, using: attributes)
             }
         }
         // Tell it to start rendering 3ds content in background
